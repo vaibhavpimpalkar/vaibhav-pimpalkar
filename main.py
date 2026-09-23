@@ -27,3 +27,17 @@ def create_user(name:str):
   return{
     "message":f"user {name} created successfully"
   }
+
+@app.post("/users")
+def create_user_with_query_param(name:str):
+  users.append(name)
+  return{
+    "massage":f"user {name} created successfully"
+  }
+
+@app.delete("/users/{id}")
+def delete_user(id:int):
+  users.pop(id)
+  return{
+    "status":"user deleted successfully"
+  }
