@@ -1,27 +1,21 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import APIRouter
+from app.schema.teams_schema import Team
+from app.db.db import teams
 
-app=FastAPI()
-
-teams =[]
-# model
-class Team(BaseModel):
-  id:int
-  name:str
-  player:str
+router=APIRouter()
 
 
-@app.get("/health")
-def get_health():
-  return{
-    "status":"ok"
-  }
-
-@app.post("/teams")
+@router.post("/teams")
 def create_team(new_team:Team):
   teams.append(new_team)
   return {
     "msg":"Team is created successfully!"
+  }
+
+@router.get("/teams")
+def get_teams():
+  return {
+    "team":teams
   }
 
 
